@@ -1,0 +1,24 @@
+{
+  "name": "web322-assignment2",
+  "version": "1.0.0",
+  "description": "WEB322 Assignment 2 with Tailwind CSS setup",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/main.css",
+    "watch": "npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/main.css --watch"
+  },
+  "keywords": [],
+  "author": "Muhammad Abubakar",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "daisyui": "^5.4.7",
+    "tailwindcss": "^3.4.18"
+  }
+}

@@ -1,0 +1,13 @@
+<%- include("partials/navbar") %>
+
+<h1 class="text-3xl font-bold mb-4 text-center"><%= project.title %></h1>
+
+<div class="flex justify-center mb-4">
+  <img src="<%= project.image %>" alt="<%= project.title %>" class="w-96 h-60 object-cover rounded">
+</div>
+
+<p class="text-center mb-4"><%= project.description %></p>
+
+<div class="text-center">
+  <a href="/solutions/projects" class="text-blue-500 underline">Back to Projects</a>
+</div>
