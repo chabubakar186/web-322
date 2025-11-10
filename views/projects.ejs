@@ -1,0 +1,14 @@
+<%- include("partials/navbar") %>
+
+<h1 class="text-3xl font-bold mb-6 text-blue-700 text-center">Our Projects</h1>
+
+<div class="flex gap-6 flex-wrap justify-center">
+  <% projects.forEach(project => { %>
+    <div class="border p-4 rounded shadow w-64 text-center">
+      <img src="<%= project.image %>" alt="<%= project.title %>" class="mb-2 w-full h-40 object-cover rounded">
+      <h2 class="text-xl font-semibold mb-2"><%= project.title %></h2>
+      <p class="mb-2"><%= project.description %></p>
+      <a href="/solutions/projects/<%= project.id %>" class="text-blue-500 underline">View Details</a>
+    </div>
+  <% }) %>
+</div>
