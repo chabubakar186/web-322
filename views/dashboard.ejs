@@ -1,13 +1,22 @@
-<%- include("partials/header") %>
-<%- include("partials/navbar") %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-<h2>Welcome, <%= user.username %>!</h2>
+<body>
+    <%- include("partials/navbar") %>
 
-<div class="stats">
-    <p>Total Tasks: <%= totalTasks %></p>
-    <p>Completed: <%= completedTasks %></p>
-</div>
+    <div class="container">
+        <h2>Welcome, <%= user.username %>!</h2>
 
-<a href="/tasks" class="btn">View All Tasks</a>
+        <p><strong>Total Tasks:</strong> <%= total %></p>
+        <p><strong>Completed:</strong> <%= completed %></p>
 
-<%- include("partials/footer") %>
+        <p><a class="btn" href="/tasks">View All Tasks</a></p>
+
+        <footer>WEB322 Assignment 3 — Siddhant Bisht</footer>
+    </div>
+</body>
+</html>

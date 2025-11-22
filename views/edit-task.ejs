@@ -1,21 +1,24 @@
-<%- include("partials/header") %>
-<%- include("partials/navbar") %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-<h2>Edit Task</h2>
+<body>
+    <%- include("partials/navbar") %>
 
-<form action="/tasks/edit/<%= task.id %>" method="POST">
+    <div class="container">
+        <h2>Edit Task</h2>
 
-    <input type="text" name="title" value="<%= task.title %>" required>
+        <form action="/tasks/edit/<%= task.id %>" method="POST">
+            <input type="text" name="title" value="<%= task.title %>">
+            <textarea name="description"><%= task.description %></textarea>
 
-    <textarea name="description"><%= task.description %></textarea>
+            <button type="submit">Update Task</button>
+        </form>
 
-    <input type="date" name="dueDate" value="<%= task.dueDate ? task.dueDate.toISOString().split("T")[0] : '' %>">
-
-    <% if(error){ %>
-        <p class="error"><%= error %></p>
-    <% } %>
-
-    <button type="submit">Save Changes</button>
-</form>
-
-<%- include("partials/footer") %>
+        <footer>WEB322 Assignment 3 — Siddhant Bisht</footer>
+    </div>
+</body>
+</html>

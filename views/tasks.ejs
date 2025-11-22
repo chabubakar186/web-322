@@ -1,37 +1,49 @@
-<%- include("partials/header") %>
-<%- include("partials/navbar") %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Tasks</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-<h2>Your Tasks</h2>
+<body>
+    <%- include("partials/navbar") %>
 
-<a href="/tasks/add" class="btn">Add Task</a>
+    <div class="container">
+        <h2>Your Tasks</h2>
 
-<table>
-    <tr>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </tr>
+        <a href="/tasks/add" class="btn">Add Task</a>
 
-    <% tasks.forEach(task => { %>
-    <tr>
-        <td><%= task.title %></td>
-        <td><%= task.status %></td>
-        <td>
-            <a href="/tasks/edit/<%= task.id %>">Edit</a>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
 
-            <form action="/tasks/delete/<%= task.id %>" method="POST" style="display:inline;">
-                <button type="submit">Delete</button>
-            </form>
+            <% tasks.forEach(task => { %>
+                <tr>
+                    <td><%= task.title %></td>
+                    <td><%= task.complete ? "Completed" : "Pending" %></td>
 
-            <form action="/tasks/status/<%= task.id %>" method="POST" style="display:inline;">
-                <select name="status" onchange="this.form.submit()">
-                    <option value="pending" <%= task.status==='pending'?'selected':'' %>>Pending</option>
-                    <option value="completed" <%= task.status==='completed'?'selected':'' %>>Completed</option>
-                </select>
-            </form>
-        </td>
-    </tr>
-    <% }) %>
-</table>
+                    <td>
+                        <a href="/tasks/edit/<%= task.id %>">Edit</a>
 
-<%- include("partials/footer") %>
+                        <form action="/tasks/delete/<%= task.id %>" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+
+                        <form action="/tasks/status/<%= task.id %>" method="POST" style="display:inline;">
+                            <select name="status" onchange="this.form.submit()">
+                                <option value="pending" <%= !task.complete ? "selected" : "" %>>Pending</option>
+                                <option value="completed" <%= task.complete ? "selected" : "" %>>Completed</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+
+        <footer>WEB322 Assignment 3 — Siddhant Bisht</footer>
+    </div>
+</body>
+</html>
