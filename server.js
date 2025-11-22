@@ -9,12 +9,12 @@ const taskRoutes = require("./routes/tasks");
 
 const app = express();
 
-// ====== MIDDLEWARE ======
+// MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// ====== SESSION CONFIG ======
+// SESSION
 app.use(session({
     secret: "sid_super_secret_key",
     resave: false,
@@ -24,11 +24,11 @@ app.use(session({
     }
 }));
 
-// ====== EJS SETUP ======
+// EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// ====== DATABASE CONNECTIONS ======
+// DB CONNECTIONS
 async function connectDatabases() {
     try {
         await mongoose.connect(process.env.MONGO_URI);
@@ -38,16 +38,17 @@ async function connectDatabases() {
     }
 
     try {
-        await sequelize.sync();   // SQLite only
-        console.log("✔ SQLite synced");
+        await sequelize.authenticate();
+        await sequelize.sync();
+        console.log("✔ PostgreSQL connected");
     } catch (err) {
-        console.log("❌ SQLite error:", err.message);
+        console.log("❌ PostgreSQL error:", err.message);
     }
 }
 
 connectDatabases();
 
-// ====== ROUTES ======
+// ROUTES
 app.use("/", authRoutes);
 app.use("/", taskRoutes);
 
@@ -56,7 +57,7 @@ app.get("/", (req, res) => {
     res.redirect("/login");
 });
 
-// ====== START SERVER ======
+// START SERVER
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
