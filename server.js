@@ -1,9 +1,16 @@
+/********************************************************************************
+* WEB322 – Assignment 03
+*
+* I declare that this assignment is my own work in accordance with Seneca's
+* Academic Integrity Policy:
+*
+* https://www.senecapolytechnic.ca/about/policies/academic-integrity-policy.ht
+********************************************************************************/
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const mongoose = require("mongoose");
-const { sequelize } = require("./models/Task");
 const authRoutes = require("./routes/auth");
 const taskRoutes = require("./routes/tasks");
 
@@ -20,7 +27,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 30 * 60 * 1000, // 30 minutes
+        maxAge: 30 * 60 * 1000, // 30 min
     }
 }));
 
@@ -28,31 +35,16 @@ app.use(session({
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// DB CONNECTIONS
-async function connectDatabases() {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log("✔ MongoDB connected");
-    } catch (err) {
-        console.log("❌ MongoDB error:", err.message);
-    }
-
-    try {
-        await sequelize.authenticate();
-        await sequelize.sync();
-        console.log("✔ PostgreSQL connected");
-    } catch (err) {
-        console.log("❌ PostgreSQL error:", err.message);
-    }
-}
-
-connectDatabases();
+// MONGODB ONLY
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("✔ MongoDB connected"))
+    .catch(err => console.log("❌ MongoDB error:", err.message));
 
 // ROUTES
 app.use("/", authRoutes);
 app.use("/", taskRoutes);
 
-// DEFAULT ROOT
+// DEFAULT (root redirect)
 app.get("/", (req, res) => {
     res.redirect("/login");
 });
